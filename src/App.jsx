@@ -26,7 +26,7 @@ const App = () => {
       setMaxLength(10);
     } else if (passFormat.every(e => e === "symbols")) {
       setMaxLength(12);
-    } else if (passFormat.includes("numbers", "symbols")) {
+    } else if (passFormat.includes("numbers") && passFormat.includes("symbols")) {
       setMaxLength(22);
     } else {
       setMaxLength(30); // All checkbox clicked
@@ -66,25 +66,7 @@ const App = () => {
       if (passFormat.includes("symbols")) char.push(symbols[Math.floor(Math.random() * symbols.length)]);
     }
 
-    const unique = [...new Set(char)].slice(0, passLength);
-
-    if (passLength !== unique) {
-      for (let i = 0; i <= passLength; i++) {
-        if (passFormat.includes("uppercase")) char.push(upperAlpha[Math.floor(Math.random() * upperAlpha.length)]);
-
-
-        if (passFormat.includes("lowercase")) char.push(lowerAlpha[Math.floor(Math.random() * lowerAlpha.length)]);
-
-
-        if (passFormat.includes("numbers")) char.push(numbers[Math.floor(Math.random() * numbers.length)]);
-
-
-        if (passFormat.includes("symbols")) char.push(symbols[Math.floor(Math.random() * symbols.length)]);
-      }
-    }
-
-    setDisplayPass([...new Set(char)].slice(0, passLength).join(""));
-    console.log([...new Set(char)].slice(0, passLength).join("").length);
+    setDisplayPass(char.slice(0, passLength).join(""));
   };
 
 
@@ -128,6 +110,7 @@ const App = () => {
               className="w-full p-4 text-sm sm:text-lg font-mono border border-gray-600 bg-gray-700 rounded-lg pr-12 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="Your secure password"
             />
+
             <button
               className="absolute right-0 top-0 h-full px-4 rounded-r-lg disabled:cursor-not-allowed text-gray-400 hover:bg-gray-600"
               title="Copy to Clipboard"
